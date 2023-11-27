@@ -3,7 +3,7 @@ language: generic
 services:
   - docker
 
-berfore_install:
+before_install:
   - docker build -t ziaiz/full-stack -f ./client/Dockerfile.dev ./client
 
 script:
@@ -11,11 +11,12 @@ script:
 
 after_success:
   - docker build -t ziaiz/full-stack-client ./client
-  - docker build -t ziaiz/full-stack-nginx ./ngnix
+  - docker build -t ziaiz/full-stack-nginx ./nginx # Corrected typo in "nginx"
   - docker build -t ziaiz/full-stack-server ./server
   - docker build -t ziaiz/full-stack-worker ./worker
   # LOG TO DOCKER
-  - echo "$DOCKER_PASSWORD" | login -u "$DOCKER_ID" --password-stdin
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin # Corrected "login" command
+
   - docker push ziaiz/full-stack-client
   - docker push ziaiz/full-stack-nginx
   - docker push ziaiz/full-stack-server
