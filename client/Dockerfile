@@ -8,6 +8,6 @@ RUN npm run build
 FROM nginx
 EXPOSE 3000
 COPY ./nginx/defult.conf /etc/nginx/conf.d/default.conf
-COPY --from=builer ./app/build /user/share/nginx/html
+COPY --from=builder /app/build /usr/share/nginx/html 
 
 CMD ["npm", "run", "start"]
