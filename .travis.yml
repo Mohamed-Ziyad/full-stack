@@ -1,0 +1,16 @@
+language: generic
+sudo: required
+services:
+  - docker
+
+berfore_install:
+  - docker build -t ziaiz/full-stack -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true ziaiz/full-stack npm test -- --coverage
+
+after_success:
+  - docker build -t ziaiz/full-stack-client ./client
+  - docker build -t ziaiz/full-stack-nginx ./ngnix
+  - docker build -t ziaiz/full-stack-server ./server
+  - docker build -t ziaiz/full-stack-worker ./worker
