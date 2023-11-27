@@ -14,3 +14,9 @@ after_success:
   - docker build -t ziaiz/full-stack-nginx ./ngnix
   - docker build -t ziaiz/full-stack-server ./server
   - docker build -t ziaiz/full-stack-worker ./worker
+  # LOG TO DOCKER
+  - echo "$DOCKER_PASSWORD" | login -u "$DOCKER_ID" --password-stdin
+  - docker push ziaiz/full-stack-client
+  - docker push ziaiz/full-stack-nginx
+  - docker push ziaiz/full-stack-server
+  - docker push ziaiz/full-stack-worker
